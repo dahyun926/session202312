@@ -21,14 +21,15 @@ import com.session202312.app.databinding.ActivityMainBinding
 import com.session202312.app.db.PokemonDB
 import com.session202312.app.model.PokemonInfo
 import com.session202312.app.network.RetrofitService
+import com.session202312.app.repository.PokemonRepository
 import com.session202312.app.viewmodel.PokemonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlin.random.Random
 
-//TODO 1. Repository 패턴이란?
-//TODO 2. 데이터 소스의 분리
+//TODO 1. 의존성이란
+//TODO 2. 클래스 내부에서 다른 객체가 생성될 때의 문제점
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var vm: PokemonViewModel
@@ -37,7 +38,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-        vm = PokemonViewModel()
+
+        val apiService = RetrofitService.apiService
+        val dao = PokemonDB.getInstance().pokemonDao()
+        val repository = PokemonRepository(apiService, dao)
+        vm = PokemonViewModel(repository)
+
         binding.vm = vm
 
         vm.pokemon.observe(this, Observer { pokemon ->

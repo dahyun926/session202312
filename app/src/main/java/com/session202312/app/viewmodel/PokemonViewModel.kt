@@ -12,8 +12,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlin.random.Random
 
-class PokemonViewModel : ViewModel() {
-    private val repository = PokemonRepository()
+class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() {
     val pokemon: MutableLiveData<PokemonInfo> = MutableLiveData()
 
     init {
