@@ -27,10 +27,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlin.random.Random
 
-//TODO 1. MVVM 패턴 소개
-//TODO 2. ViewModel 생성
-//TODO 3. DataBinding, LiveData란?
-//TODO 4. UI와 비즈니스 로직의 분리
+//TODO 1. Repository 패턴이란?
+//TODO 2. 데이터 소스의 분리
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var vm: PokemonViewModel

@@ -15,7 +15,7 @@ abstract class PokemonDB : RoomDatabase() {
         private var instance: PokemonDB? = null
 
         @Synchronized
-        fun getInstance(): PokemonDB? {
+        fun getInstance(): PokemonDB {
             if (instance == null)
                 synchronized(PokemonDB::class) {
                     instance = Room.databaseBuilder(
@@ -25,7 +25,7 @@ abstract class PokemonDB : RoomDatabase() {
                     ).fallbackToDestructiveMigration()
                         .build()
                 }
-            return instance
+            return instance!!
         }
 
 
