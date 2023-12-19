@@ -8,11 +8,15 @@ import com.session202312.app.db.PokemonDB
 import com.session202312.app.model.PokemonInfo
 import com.session202312.app.network.RetrofitService
 import com.session202312.app.repository.PokemonRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 import kotlin.random.Random
 
-class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() {
+@HiltViewModel
+class PokemonViewModel @Inject constructor(private val repository: PokemonRepository) :
+    ViewModel() {
     val pokemon: MutableLiveData<PokemonInfo> = MutableLiveData()
 
     init {

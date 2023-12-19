@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.palette.graphics.Palette
@@ -28,22 +29,16 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlin.random.Random
 
-//TODO 1. 의존성이란
-//TODO 2. 클래스 내부에서 다른 객체가 생성될 때의 문제점
+//TODO Hilt를 활용한 의존성 주입
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var vm: PokemonViewModel
+    private val vm: PokemonViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-
-        val apiService = RetrofitService.apiService
-        val dao = PokemonDB.getInstance().pokemonDao()
-        val repository = PokemonRepository(apiService, dao)
-        vm = PokemonViewModel(repository)
-
         binding.vm = vm
 
         vm.pokemon.observe(this, Observer { pokemon ->
